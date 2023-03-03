@@ -114,7 +114,7 @@ fetch(baseUrl + "/dogs", {
 
 Now on the backend, we should be able to access the body that we send using `req.body`, and use that data to create a new dog in prisma. After creating the dog we should return a status code of `201`
 
-### Patch (/dogs:id)
+### Patch (/dogs/:id)
 
 According to REST convention if we send a patch request to "/dogs/:id" then we should be able to update that dog with the information from the body.
 
@@ -139,7 +139,7 @@ Then our server should respond by
 - responding with the resource altered
 - sending a status code of 201 if successfully altered
 
-### DELETE (/dogs:id)
+### DELETE (/dogs/:id)
 
 According to REST convention if we send a delete request to this entity it should delete the entity
 
