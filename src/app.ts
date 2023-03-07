@@ -47,17 +47,29 @@ app.post("/dogs", async (req, res) => {
   }
 
   const { age, name, description, breed } = req.body;
-  if (!age && typeof age !== "number") {
-    errors.push("age should be a number");
-  }
-  if (!name && typeof name !== "string") {
-    errors.push("name should be a string");
-  }
-  if (!description && typeof description !== "string") {
-    errors.push("description should be a string");
-  }
-  if (!breed && typeof breed !== "string") {
-    errors.push("breed should be a string");
+  const allRequiredKeys = [
+    { key: "age", value: age, typeItShouldBe: "number" },
+    { key: "name", value: name, typeItShouldBe: "string" },
+    {
+      key: "description",
+      value: description,
+      typeItShouldBe: "string",
+    },
+    {
+      key: "breed",
+      value: breed,
+      typeItShouldBe: "string",
+    },
+  ];
+  for (const key of allRequiredKeys) {
+    if (
+      !key.value &&
+      typeof key.value !== key.typeItShouldBe
+    ) {
+      errors.push(
+        `${key.key} should be a ${key.typeItShouldBe}`
+      );
+    }
   }
   if (errors.length > 0) {
     return res.status(400).send({ errors });
@@ -89,7 +101,9 @@ app.post("/dogs", async (req, res) => {
 app.patch("/dogs/:id", async (req, res) => {
   const errors = [];
   for (const key of Object.keys(req.body)) {
-    if (!/age|name|description|breed/g.test(key)) {
+    if (
+      !/(^age$|^name$|^description$|^breed$)/g.test(key)
+    ) {
       errors.push(`'${key}' is not a valid key`);
     }
   }
