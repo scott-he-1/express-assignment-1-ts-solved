@@ -107,7 +107,7 @@ fetch(baseUrl + "/dogs", {
   body: JSON.stringify({
     name: "Air Bud",
     breed: "Golden Retriever",
-    description; "Air bud can definitely beat you in basketball"
+    description: "Air bud can definitely beat you in basketball"
   })
 })
 ```
